@@ -7,5 +7,10 @@ import java.lang.annotation.Target;
 
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface TelegramMessage {
+public @interface W4TelegramCommand {
+    String[] value() default {};
+    String description() default "";
+
+    boolean hidden() default false;
+    boolean isHelp() default false;
 }

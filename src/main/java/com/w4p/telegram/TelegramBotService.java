@@ -1,6 +1,6 @@
 package com.w4p.telegram;
 
-import com.w4p.telegram.annotation.TelegramCommand;
+import com.w4p.telegram.annotation.W4TelegramCommand;
 import com.w4p.telegram.config.TelegramBotBuilder;
 import com.w4p.telegram.model.TelegramBotCommand;
 import com.w4p.telegram.model.TelegramHandler;
@@ -9,7 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.telegram.telegrambots.TelegramBotsApi;
 import org.telegram.telegrambots.api.methods.BotApiMethod;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
+import org.telegram.telegrambots.api.objects.Message;
 import org.telegram.telegrambots.api.objects.Update;
+import org.telegram.telegrambots.api.objects.User;
 import org.telegram.telegrambots.bots.DefaultAbsSender;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.bots.TelegramWebhookBot;
@@ -20,7 +22,10 @@ import org.telegram.telegrambots.generics.WebhookBot;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -42,7 +47,7 @@ public class TelegramBotService {
     private DefaultAbsSender client;
 
     public TelegramBotService(TelegramBotBuilder botBuilder) {
-        log.info("Build TelegramBot: {}", botBuilder);
+        log.info("Build W4TelegramBot: {}", botBuilder);
 
         this.username = botBuilder.getUsername();
         this.token = botBuilder.getToken();
@@ -90,7 +95,7 @@ public class TelegramBotService {
 
                 if (commandHandler != null) {
                     Object[] arguments = makeArgumentList(commandHandler.getMethod(), command, update);
-                    if (commandHandler.getTelegramCommand() != null && commandHandler.getTelegramCommand().isHelp()) {
+                    if (commandHandler.getW4TelegramCommand() != null && commandHandler.getW4TelegramCommand().isHelp()) {
                         sendHelpList(update);
                     } else if (commandHandler.getMethod().getGenericReturnType().equals(Void.TYPE)) {
                         //Void method
@@ -129,6 +134,10 @@ public class TelegramBotService {
                 arguments.add(this);
             } else if (type.equals(DefaultAbsSender.class)) {
                 arguments.add(this.client);
+            } else if (type.equals(Message.class)) {
+                arguments.add(update.getMessage());
+            } else if (type.equals(User.class)) {
+                arguments.add(update.getMessage().getFrom());
             }
         }
 
@@ -155,8 +164,8 @@ public class TelegramBotService {
 
     public List<TelegramBotCommand> getCommandList() {
         return this.commandList.entrySet().stream()
-            .filter(entry -> !entry.getValue().getTelegramCommand().hidden())
-            .map((entry) -> new TelegramBotCommand(entry.getKey(), entry.getValue().getTelegramCommand().description()))
+            .filter(entry -> !entry.getValue().getW4TelegramCommand().hidden())
+            .map((entry) -> new TelegramBotCommand(entry.getKey(), entry.getValue().getW4TelegramCommand().description()))
             .collect(Collectors.toList());
     }
 
@@ -169,7 +178,7 @@ public class TelegramBotService {
     }
 
     public void addHandler(Object bean, Method method) {
-        TelegramCommand command = method.getAnnotation(TelegramCommand.class);
+        W4TelegramCommand command = method.getAnnotation(W4TelegramCommand.class);
         for (String cmd: command.value()) {
             this.commandList.put(cmd, new TelegramHandler(bean, method, command));
         }
@@ -179,6 +188,23 @@ public class TelegramBotService {
         this.defaultMessageHandler = new TelegramHandler(bean, method, null);
     }
 
+
+
+    public void addHelpMethod() {
+        try {
+            Method helpMethod = this.getClass().getMethod("helpMethod");
+            W4TelegramCommand command = helpMethod.getAnnotation(W4TelegramCommand.class);
+            for (String cmd: command.value()) {
+                this.commandList.put(cmd, new TelegramHandler(this, helpMethod, command));
+            }
+        } catch (NoSuchMethodException e) {
+            log.error(e.getMessage());
+        }
+
+    }
+
+    @W4TelegramCommand(value = "/help", isHelp = true)
+    public void helpMethod() {}
 
 
     public class TelegramBotLongPollingImpl extends TelegramLongPollingBot {

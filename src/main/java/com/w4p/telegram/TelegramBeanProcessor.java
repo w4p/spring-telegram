@@ -1,8 +1,8 @@
 package com.w4p.telegram;
 
-import com.w4p.telegram.annotation.TelegramBot;
-import com.w4p.telegram.annotation.TelegramCommand;
-import com.w4p.telegram.annotation.TelegramMessage;
+import com.w4p.telegram.annotation.W4TelegramBot;
+import com.w4p.telegram.annotation.W4TelegramCommand;
+import com.w4p.telegram.annotation.W4TelegramMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
@@ -26,8 +26,8 @@ public class TelegramBeanProcessor implements BeanPostProcessor, Ordered {
 
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
-        if (bean.getClass().isAnnotationPresent(TelegramBot.class)) {
-            log.info("Init TelegramBot controller: {}", bean.getClass().getName());
+        if (bean.getClass().isAnnotationPresent(W4TelegramBot.class)) {
+            log.info("Init W4TelegramBot controller: {}", bean.getClass().getName());
             botControllerMap.put(beanName, bean.getClass());
         }
         return bean;
@@ -40,20 +40,21 @@ public class TelegramBeanProcessor implements BeanPostProcessor, Ordered {
         Class original = botControllerMap.get(beanName);
 
         Arrays.stream(original.getDeclaredMethods())
-            .filter(method -> method.isAnnotationPresent(TelegramCommand.class) || method.isAnnotationPresent(TelegramMessage.class))
+            .filter(method -> method.isAnnotationPresent(W4TelegramCommand.class) || method.isAnnotationPresent(W4TelegramMessage.class))
             .forEach((Method method) -> bindController(bean, method));
 
         return bean;
     }
 
     private void bindController(Object bean, Method method) {
-        if (method.getAnnotation(TelegramCommand.class) != null) {
-            log.info("Init TelegramBot command: {}:{}", method.getAnnotation(TelegramCommand.class), method.getName());
+        if (method.getAnnotation(W4TelegramCommand.class) != null) {
+            log.info("Init W4TelegramBot command: {}:{}", method.getAnnotation(W4TelegramCommand.class), method.getName());
             this.telegramBotService.addHandler(bean, method);
-        } else if (method.getAnnotation(TelegramMessage.class) != null) {
-            log.info("Init TelegramBot default message handler: {}:{}", method.getAnnotation(TelegramMessage.class), method.getName());
+        } else if (method.getAnnotation(W4TelegramMessage.class) != null) {
+            log.info("Init W4TelegramBot default message handler: {}:{}", method.getAnnotation(W4TelegramMessage.class), method.getName());
             this.telegramBotService.addMessageHandler(bean, method);
         }
+        this.telegramBotService.addHelpMethod();
     }
 
     @Override

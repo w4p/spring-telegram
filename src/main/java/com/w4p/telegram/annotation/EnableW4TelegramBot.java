@@ -11,5 +11,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Import(TelegramBotConfiguration.class)
-public @interface EnableTelegramBot {
+public @interface EnableW4TelegramBot {
 }
