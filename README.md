@@ -1,5 +1,5 @@
 # spring-telegram
-Java TelegramBot for Spring Framework
+TelegramBot for Spring Framework with multithread async support.
 
 ## Setup project
 
