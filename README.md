@@ -3,7 +3,7 @@ Java TelegramBot for Spring Framework
 
 ## Setup project
 
-###1) Setup
+### 1) Setup
 
 Init SpringBootApplication and enable TelegramBot support "`@EnableW4TelegramBot`" 
 ```java
@@ -30,7 +30,7 @@ public class ExampleBot extends SpringBootServletInitializer {
 }
 ```
 
-### 2 Add Telegram controller
+### 2) Add Telegram controller
 
 ```java
 @W4TelegramBot
