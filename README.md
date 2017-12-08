@@ -3,9 +3,12 @@ Java TelegramBot for Spring Framework
 
 ## Setup project
 
-### 1) Setup
+### 1) Create TelegramBot
+Please create one Telegram Bot by the [link](https://telegram.me/botfather)  
 
-Init SpringBootApplication and enable TelegramBot support "`@EnableW4TelegramBot`" 
+### 2) Setup project
+
+Init SpringBootApplication and enable TelegramBot support "`@EnableW4TelegramBot`". Please change you `"[botusername]"` and `[token]` . 
 ```java
 @SpringBootApplication
 @EnableW4TelegramBot
@@ -14,8 +17,8 @@ public class ExampleBot extends SpringBootServletInitializer {
     @Bean
     public TelegramBotBuilder telegramBotBuilder() {
         return new TelegramBotBuilder()
-                .username("SpringTeleBot")
-                .token("473338456:AAG8Dy9XgRRDbzu7kCjzmXzL3LpL7ZN6d6M");
+                .username("[botusername]")
+                .token("[token]");
     }
 
     @Override

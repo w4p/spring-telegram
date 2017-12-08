@@ -15,8 +15,8 @@ public class ExampleBot extends SpringBootServletInitializer {
     @Bean
     public TelegramBotBuilder telegramBotBuilder() {
         return new TelegramBotBuilder()
-                .username("SpringTeleBot")
-                .token("473338456:AAG8Dy9XgRRDbzu7kCjzmXzL3LpL7ZN6d6M");
+                .username("[bot_username]")
+                .token("[token]");
     }
 
     @Override
