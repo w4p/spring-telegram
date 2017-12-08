@@ -48,7 +48,7 @@ public class TelegramBotController {
     }
 }
 ```
-Well done! We ready to send & recieve commands from Telegram. Full example you can see by the [link]([https://github.com/w4p/spring-telegram/tree/master/example)
+Well done! We ready to send & recieve commands from Telegram. Full example you can see by the [link](https://github.com/w4p/spring-telegram/tree/master/example/src/main/java/com/w4p/telegram)
 
 ## Open source
 Spring-Telegram is an open source project distributed under the liberal MIT license. 
