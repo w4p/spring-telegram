@@ -34,7 +34,7 @@ public class ExampleBot extends SpringBootServletInitializer {
 }
 ```
 
-### 2) Add Telegram controller to project
+### 3) Add Telegram controller to project
 
 ```java
 @W4TelegramBot
