@@ -6,9 +6,10 @@ Java TelegramBot for Spring Framework
 ### 1) Create TelegramBot
 Please create one Telegram Bot by the [link](https://telegram.me/botfather)  
 
-### 2) Setup project
+### 2) Init Spring project
 
-Init SpringBootApplication and enable TelegramBot support "`@EnableW4TelegramBot`". Please change you `"[botusername]"` and `[token]` . 
+Init SpringBootApplication and enable TelegramBot support **`@EnableW4TelegramBot`**. 
+Setup you **`"[botusername]"`** and **`[token]`** . 
 ```java
 @SpringBootApplication
 @EnableW4TelegramBot
@@ -33,7 +34,7 @@ public class ExampleBot extends SpringBootServletInitializer {
 }
 ```
 
-### 2) Add Telegram controller
+### 2) Add Telegram controller to project
 
 ```java
 @W4TelegramBot
