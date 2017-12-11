@@ -120,7 +120,7 @@ public class TelegramBotService {
 
     private Object[] makeArgumentList(Method method, TelegramMessageCommand telegramMessageCommand, Update update) {
         Type[] commandArguments = method.getGenericParameterTypes();
-        List<Object> arguments = new ArrayList<>();
+        List<Object> arguments = new ArrayList<>(commandArguments.length);
         for (Type type : commandArguments) {
             if (type.equals(Update.class)) {
                 arguments.add(update);
