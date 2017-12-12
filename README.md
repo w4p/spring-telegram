@@ -10,9 +10,6 @@ TelegramBot for Spring Framework with multithread async support.
 </dependency>
 ```
 
-### Example
-Simple example application you can find by the [link](https://github.com/w4p/spring-telegram-example)
-
 ## Setup project
 
 ### 1) Create TelegramBot
