@@ -2,7 +2,7 @@
 TelegramBot for Spring Framework with multithread async support.
 
 ## Repo
-```
+```xml
 <dependency>
     <groupId>com.github.w4p</groupId>
     <artifactId>spring-telegram</artifactId>
