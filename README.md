@@ -1,6 +1,18 @@
 # spring-telegram
 TelegramBot for Spring Framework with multithread async support.
 
+## Repo
+```
+<dependency>
+    <groupId>com.github.w4p</groupId>
+    <artifactId>spring-telegram</artifactId>
+    <version>0.9.1</version>
+</dependency>
+```
+
+### Example
+Simple example application you can find by the [link](https://github.com/w4p/spring-telegram-example)
+
 ## Setup project
 
 ### 1) Create TelegramBot
@@ -48,7 +60,7 @@ public class TelegramBotController {
     }
 }
 ```
-Well done! We ready to send & recieve commands from Telegram. Full example you can see by the [link](https://github.com/w4p/spring-telegram/tree/master/example/src/main/java/com/w4p/telegram)
+Well done! We ready to send & recieve commands from Telegram. Full example you can see by the [link](https://github.com/w4p/spring-telegram-example)
 
 ## Open source
 Spring-Telegram is an open source project distributed under the liberal MIT license. 
