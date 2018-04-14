@@ -44,7 +44,7 @@ public class TelegramBotBuilder {
         return this;
     }
 
-    public TelegramBotBuilder path(BotType type) {
+    public TelegramBotBuilder type(BotType type) {
         this.type = type;
         return this;
     }
