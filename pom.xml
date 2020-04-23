@@ -6,7 +6,7 @@
 
     <groupId>com.github.w4p</groupId>
     <artifactId>spring-telegram</artifactId>
-    <version>0.9.1</version>
+    <version>0.9.2</version>
 
     <name>Spring-Telegram: Java TelegramBot for Spring Framework</name>
     <description>Java TelegramBot for Spring Framework with async multithreading support</description>
@@ -72,7 +72,7 @@
         <dependency>
             <groupId>org.telegram</groupId>
             <artifactId>telegrambots</artifactId>
-            <version>3.5</version>
+            <version>[4.7,)</version>
         </dependency>
     </dependencies>
 
